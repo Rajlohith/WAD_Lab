@@ -2,81 +2,113 @@
 <html>
 <head>
     <title>Student Registration Form</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <style>
-        body {
-            background-color: lightblue;
-        }
+        body { background-color: lightblue; }
     </style>
 </head>
 
 <body>
 
-    <h2 class="text-white text-center mt-3">Student Registration Form</h2>
+<h2 class="text-black text-center">Student Registration Form</h2>
 
-    <form onsubmit="event.preventDefault();">
+<div class="container w-80">
+<form onsubmit="event.preventDefault(); register();">
 
-        <label>Full Name</label>
-        <input type="text" class="form-control" id="fullName" required><br>
+    <label>Full Name</label>
+    <input type="text" class="form-control" id="fullName" required><br>
 
-        <label>Email address</label>
-        <input type="email" class="form-control" id="email" required><br>
+    <label>Email address</label>
+    <input type="email" class="form-control" id="email" required><br>
 
-        <label>Phone Number</label>
-        <input type="text" class="form-control" id="phone" required><br>
+    <label>Phone Number</label>
+    <input type="text" class="form-control" id="phone" required><br>
 
-        <label>Password</label>
-        <input type="password" class="form-control" id="password"><br>
+    <label>Password</label>
+    <input type="password" class="form-control" id="password"><br>
 
-        <label>Date of Birth</label>
-        <input type="date" class="form-control" id="dob"><br>
+    <label>Date of Birth</label>
+    <input type="date" class="form-control" id="dob"><br>
 
-        <label>Select Course</label>
-        <select class="form-select" id="course">
-            <option selected>Select a course</option>
-            <option value="1">Computer Science</option>
-            <option value="2">Business Administration</option>
-            <option value="3">Mechanical Engineering</option>
-            <option value="4">Psychology</option>
-        </select><br>
+    <!-- Radio Buttons -->
+    <label class="mt-2">Gender</label><br>
+    <div>
+        <input type="radio" name="gender" value="Male">
+        <label>Male</label>
+    </div>
+    
+    <div>
+        <input type="radio" name="gender" value="Female">
+        <label>Female</label>
+    </div><br><br>
 
-        <button type="submit" class="btn btn-primary" onclick="register()">Register</button>
+    <!-- Checkboxes -->
+    <label>Skills</label><br>
+    <div class="form-check">
+        <input type="checkbox" value="HTML">
+        <label>HTML</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" value="CSS">
+        <label>CSS</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" value="JavaScript">
+        <label>JavaScript</label>
+    </div><br>
 
-    </form>
+    <button type="submit" class="btn btn-primary">Register</button>
 
-    <script>
-        function register(){
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
+</form>
+</div>
 
-            let namereg = /^[a-zA-Z ]{3,30}$/;
-            let emailreg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            let phonereg = /^[0-9]{10}$/;
+<script>
+function register(){
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    const dob = document.getElementById('dob').value;
+    
+    const gender = document.querySelector('input[name="gender"]:checked');
 
-            if(!namereg.test(fullName)){
-                alert("Please enter a valid name.");
-                return;
-            }
+    const skills = [];
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(skill){
+        skills.push(skill.value);
+    });
 
-            if(!emailreg.test(email)){
-                alert("Please enter a valid email.");
-                return;
-            }
+    let namereg=/^[a-zA-Z ]{3,30}$/;
+    let emailreg=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let phonereg=/^[0-9]{10}$/;
 
-            if(!phonereg.test(document.getElementById('phone').value)){
-                alert("Please enter a valid 10-digit phone number.");
-                return;
-            }
+    if(!namereg.test(fullName)){
+        alert("Please enter a valid name.");
+        return;
+    }
 
-            alert("Form submitted successfully!");
-        }
-    </script>
+    if(!emailreg.test(email)){
+        alert("Please enter a valid email.");
+        return;
+    }
+
+    if(!phonereg.test(phone)){
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+    }
+
+    alert(
+        "Form Submitted Successfully!\n\n" +
+        "Name: " + fullName + "\n" +
+        "Email: " + email + "\n" +
+        "Phone: " + phone + "\n" +
+        "Password: " + password + "\n" +
+        "DOB: " + dob + "\n" +
+        "Gender: " + (gender ? gender.value : "") + "\n" +
+        "Skills: " + skills.join(", ")
+    );
+}
+</script>
+
 
 </body>
 </html>
