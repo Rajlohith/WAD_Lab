@@ -139,125 +139,199 @@ INSERT INTO DEPT_LOCATIONS VALUES
 
 /* ============================================================
    QUERY 1
-   List the f_Name, l_Name, dept_Name of the employee 
-   who draws a salary greater than the average salary 
+   List the f_Name, l_Name, dept_Name of the employee
+   who draws a salary greater than the average salary
    of employees working for Finance department.
+
+   Expected Output:
+   First Name Second Name Dept_Name salary
+   Value-1 Value-1 Value-1 Value-1
+   Value-2 Value-2 Value-2 Value-2
    ============================================================ */
-
-SELECT 
-    e.Fname AS "First Name", 
-    e.Lname AS "Second Name", 
-    d.Dname AS Dept_Name, 
-    e.Salary AS salary 
-FROM employee e, department d 
-WHERE e.Dno = d.Dnumber 
-  AND e.Salary > (
-      SELECT AVG(e2.Salary) 
-      FROM employee e2, department d2 
-      WHERE e2.Dno = d2.Dnumber AND d2.Dname = 'Finance'
-  );
-
+SELECT
+    e.Fname AS "First Name",
+    e.Lname AS "Second Name",
+    d.Dname AS Dept_Name,
+    e.Salary AS salary
+FROM
+    employee e,
+    department d
+WHERE
+    e.Dno = d.Dnumber
+    AND e.Salary > (
+        SELECT AVG(e2.Salary)
+        FROM
+            employee e2,
+            department d2
+        WHERE
+            e2.Dno = d2.Dnumber
+            AND d2.Dname = 'Finance'
+    );
 
 
 /* ============================================================
    QUERY 2
-   List the name and department of the employee who is 
-   currently working on more than two projects 
+   List the name and department of the employee who is
+   currently working on more than two projects
    controlled by R&D department.
-   ============================================================ */
 
-SELECT 
-    e.Fname AS "First Name", 
-    e.Lname AS "Second Name", 
-    d.Dname AS Dept_Name, 
+   Expected Output:
+   First Name Second Name Dept_Name Number of Projects
+   Value-1 Value-1 Value-1 Value-1
+   Value-2 Value-2 Value-2 Value-2
+   ============================================================ */
+SELECT
+    e.Fname AS "First Name",
+    e.Lname AS "Second Name",
+    d.Dname AS Dept_Name,
     counts.cnt AS "Number of Projects"
-FROM employee e, department d,
-     (SELECT w.Essn, COUNT(w.Pno) AS cnt 
-      FROM works_on w, project p, department d2 
-      WHERE w.Pno = p.Pnumber 
-        AND p.Dnum = d2.Dnumber 
-        AND d2.Dname = 'R&D' 
-      GROUP BY w.Essn) AS counts 
-WHERE e.Dno = d.Dnumber 
-  AND e.Ssn = counts.Essn 
-  AND counts.cnt > 2;
+FROM
+    employee e,
+    department d,
+    (
+        SELECT
+            w.Essn,
+            COUNT(w.Pno) AS cnt
+        FROM
+            works_on w,
+            project p,
+            department d2
+        WHERE
+            w.Pno = p.Pnumber
+            AND p.Dnum = d2.Dnumber
+            AND d2.Dname = 'R&D'
+        GROUP BY
+            w.Essn
+    ) AS counts
+WHERE
+    e.Dno = d.Dnumber
+    AND e.Ssn = counts.Essn
+    AND counts.cnt > 2;
 
 
 /* ============================================================
    QUERY 3
-   List all the ongoing projects controlled by 
+   List all the ongoing projects controlled by
    all the departments.
-   ============================================================ */
 
-SELECT 
-    p.Pnumber AS Project_id, 
-    p.Pname AS Project_title, 
-    d.Dname AS Dept_Name, 
+   Expected Output:
+   Project_id Project_title Dept_Name Date of completion
+   Value-1 Value-1 Value-1 Value-1
+   Value-2 Value-2 Value-2 Value-2
+   ============================================================ */
+SELECT
+    p.Pnumber AS Project_id,
+    p.Pname AS Project_title,
+    d.Dname AS Dept_Name,
     p.End_date AS "Date of completion"
-FROM project p, department d 
-WHERE p.Dnum = d.Dnumber 
-  AND (p.End_date IS NULL OR p.End_date >= CURRENT_DATE);
+FROM
+    project p,
+    department d
+WHERE
+    p.Dnum = d.Dnumber
+    AND (
+        p.End_date IS NULL
+        OR p.End_date >= CURRENT_DATE
+    );
 
 
 /* ============================================================
    QUERY 4
-   Give the details of the supervisor who is supervising 
+   Give the details of the supervisor who is supervising
    more than 3 employees who have completed at least one project.
+
+   Expected Output:
+   Supervisor_id supervisor_name
+   Value-1 Value-1
+   Value-2 Value-2
    ============================================================ */
-
-SELECT 
-    e.Ssn AS Supervisor_id, 
-    e.Fname AS supervisor_name 
-FROM employee e, 
-     (SELECT e2.Super_ssn, COUNT(DISTINCT e2.Ssn) AS cnt 
-      FROM employee e2, project p, works_on w 
-      WHERE e2.Ssn = w.Essn 
-        AND p.Pnumber = w.Pno 
-        AND p.End_date < CURRENT_DATE  -- Verifies project is completed
-        AND e2.Super_ssn IS NOT NULL 
-      GROUP BY e2.Super_ssn) AS counts 
-WHERE counts.Super_ssn = e.Ssn 
-  AND counts.cnt > 3;
-
+SELECT
+    e.Ssn AS Supervisor_id,
+    e.Fname AS supervisor_name
+FROM
+    employee e,
+    (
+        SELECT
+            e2.Super_ssn,
+            COUNT(DISTINCT e2.Ssn) AS cnt
+        FROM
+            employee e2,
+            project p,
+            works_on w
+        WHERE
+            e2.Ssn = w.Essn
+            AND p.Pnumber = w.Pno
+            AND p.End_date < CURRENT_DATE
+            AND e2.Super_ssn IS NOT NULL
+        GROUP BY
+            e2.Super_ssn
+    ) AS counts
+WHERE
+    counts.Super_ssn = e.Ssn
+    AND counts.cnt > 3;
 
 
 /* ============================================================
    QUERY 5
-   List the name of the dependents of employee who has 
+   List the name of the dependents of employee who has
    completed total projects worth 10 Lakhs (10,00,000) or more.
-   ============================================================ */
 
-SELECT e.Ssn, e.Fname, d.Dependent_name
-FROM employee e, dependent d
-WHERE e.Ssn = d.Essn
-  AND e.Ssn IN (
-      SELECT w.Essn
-      FROM works_on w, project p
-      WHERE w.Pno = p.Pnumber
-        AND p.End_date < CURRENT_DATE
-      GROUP BY w.Essn
-      HAVING SUM(p.Worth) >= 1000000
-  );
+   Expected Output:
+   Employee_id Employee_name Project_Amount Dependent_Name
+   Value-1 Value-1 Value-1 Value-1
+   Value-2 Value-2 Value-2 Value-2
+   ============================================================ */
+SELECT
+    e.Ssn AS Employee_id,
+    e.Fname AS Employee_name,
+    SUM(p.Worth) AS Project_Amount,
+    d.Dependent_name AS Dependent_Name
+FROM
+    employee e,
+    dependent d,
+    works_on w,
+    project p
+WHERE
+    e.Ssn = d.Essn
+    AND e.Ssn = w.Essn
+    AND w.Pno = p.Pnumber
+    AND p.End_date < CURRENT_DATE
+GROUP BY
+    e.Ssn,
+    e.Fname,
+    d.Dependent_name
+HAVING SUM(p.Worth) >= 1000000;
 
 
 /* ============================================================
    QUERY 6
-   List the department and employee details whose project 
+   List the department and employee details whose project
    is in more than one city.
-   ============================================================ */
 
-SELECT 
-    e.Ssn AS Employee_id, 
-    d.Dnumber AS Department_id, 
-    p.Pnumber AS Project_id, 
+   Expected Output:
+   Employee_id Department_id Project_id City
+   Value-1 Value-1 Value-1 Value-1
+   Value-2 Value-2 Value-2 Value-2
+   ============================================================ */
+SELECT
+    e.Ssn AS Employee_id,
+    d.Dnumber AS Department_id,
+    p.Pnumber AS Project_id,
     p.Plocation AS City
-FROM employee e, project p, department d, works_on w,
-     (SELECT Dnum 
-      FROM project 
-      GROUP BY Dnum 
-      HAVING COUNT(DISTINCT Plocation) > 1) AS multi_city_dept
-WHERE e.Dno = d.Dnumber 
-  AND p.Dnum = d.Dnumber
-  AND d.Dnumber = multi_city_dept.Dnum
-  AND w.Essn = e.Ssn
-  AND w.Pno = p.Pnumber;
+FROM
+    employee e,
+    project p,
+    department d,
+    works_on w,
+    (
+        SELECT Dnum
+        FROM project
+        GROUP BY Dnum
+        HAVING COUNT(DISTINCT Plocation) > 1
+    ) AS multi_city_dept
+WHERE
+    e.Dno = d.Dnumber
+    AND p.Dnum = d.Dnumber
+    AND d.Dnumber = multi_city_dept.Dnum
+    AND w.Essn = e.Ssn
+    AND w.Pno = p.Pnumber;
