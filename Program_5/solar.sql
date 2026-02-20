@@ -110,7 +110,7 @@ Expected Output:
 Name Installation Type
 Value-1 Value-1
 Value-2 Value-2
-   ============================================================ */
+============================================================ */
 SELECT
     v.Name,
     i.Type,
@@ -144,7 +144,7 @@ Expected Output:
 Name max(s.capacity)
 Value-1 Value-1
 Value-2 Value-2
-   ============================================================ */
+============================================================ */
 SELECT
     u.Area,
     p.Capacity
@@ -169,7 +169,7 @@ Expected Output:
 Area Pv_type
 Value-1 Value-1
 Value-2 Value-2
-   ============================================================ */
+============================================================ */
 SELECT DISTINCT
     u.Area,
     p.PV_Type
@@ -191,7 +191,7 @@ Expected Output:
 sum(i.install_charges) Area
 Value-1 Value-1
 Value-1 Value-1
-   ============================================================ */
+============================================================ */
 SELECT
     SUM(i.Installation_Charges) AS Total_Charges,
     u.Area,
@@ -217,7 +217,7 @@ Expected Output:
 Name pv_module price pv_type capacity installion_date
 Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
 Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
-   ============================================================ */
+============================================================ */
 SELECT
     v.Name,
     v.Contact,
@@ -248,7 +248,7 @@ Expected Output:
 Installation Type Average installation charge
 Value-1 Value-1
 Value-1 Value-1
-   ============================================================ */
+============================================================ */
 SELECT
     p.PV_Type,
     AVG(i.Installation_Charges) AS Average_Installation_Charge
