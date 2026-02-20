@@ -104,11 +104,12 @@ INSERT INTO INSTALLED_BY VALUES
 
 /* ============================================================
    QUERY 1
-   List the distributor with most installations in domestic places
-   Expected Output:
-   Name Installation Type
-   Value-1 Value-1
-   Value-2 Value-2
+List the distributor with most installations in domestic places
+
+Expected Output:
+Name Installation Type
+Value-1 Value-1
+Value-2 Value-2
    ============================================================ */
 SELECT
     v.Name,
@@ -137,11 +138,12 @@ HAVING COUNT(i.TIN) = (
 
 /* ============================================================
    QUERY 2
-   List the place name with highest capacity panel installed
-   Expected Output:
-   Name max(s.capacity)
-   Value-1 Value-1
-   Value-2 Value-2
+List the place name with highest capacity panel installed
+
+Expected Output:
+Name max(s.capacity)
+Value-1 Value-1
+Value-2 Value-2
    ============================================================ */
 SELECT
     u.Area,
@@ -161,11 +163,12 @@ WHERE
 
 /* ============================================================
    QUERY 3
-   Display the area where monocrystalline panels are installed
-   Expected Output:
-   Area Pv_type
-   Value-1 Value-1
-   Value-2 Value-2
+Display the area where monocrystalline panels are installed
+
+Expected Output:
+Area Pv_type
+Value-1 Value-1
+Value-2 Value-2
    ============================================================ */
 SELECT DISTINCT
     u.Area,
@@ -182,11 +185,12 @@ WHERE
 
 /* ============================================================
    QUERY 4
-   For the specific area display the total installation charges for both type of PV Modules
-   Expected Output:
-   sum(i.install_charges) Area
-   Value-1 Value-1
-   Value-1 Value-1
+For the specific area display the total installation charges for both type of PV Modules
+
+Expected Output:
+sum(i.install_charges) Area
+Value-1 Value-1
+Value-1 Value-1
    ============================================================ */
 SELECT
     SUM(i.Installation_Charges) AS Total_Charges,
@@ -207,11 +211,12 @@ GROUP BY
 
 /* ============================================================
    QUERY 5
-   List the details of distributors and panel that is the oldest installation
-   Expected Output:
-   Name pv_module price pv_type capacity installion_date
-   Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
-   Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
+List the details of distributors and panel that is the oldest installation
+
+Expected Output:
+Name pv_module price pv_type capacity installion_date
+Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
+Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
    ============================================================ */
 SELECT
     v.Name,
@@ -237,11 +242,12 @@ WHERE
 
 /* ============================================================
    QUERY 6
-   Find the average sales of both type of panels in only commercial places
-   Expected Output:
-   Installation Type Average installation charge
-   Value-1 Value-1
-   Value-1 Value-1
+Find the average sales of both type of panels in only commercial places
+
+Expected Output:
+Installation Type Average installation charge
+Value-1 Value-1
+Value-1 Value-1
    ============================================================ */
 SELECT
     p.PV_Type,

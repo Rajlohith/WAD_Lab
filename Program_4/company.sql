@@ -139,15 +139,13 @@ INSERT INTO DEPT_LOCATIONS VALUES
 
 /* ============================================================
    QUERY 1
-   List the f_Name, l_Name, dept_Name of the employee
-   who draws a salary greater than the average salary
-   of employees working for Finance department.
+List the f_Name, l_Name, dept_Name of the employee who draws a salary greater than the average salary of employees working for Finance department.
 
-   Expected Output:
-   First Name Second Name Dept_Name salary
-   Value-1 Value-1 Value-1 Value-1
-   Value-2 Value-2 Value-2 Value-2
-   ============================================================ */
+Expected Output:
+First Name Second Name Dept_Name salary
+Value-1 Value-1 Value-1 Value-1
+Value-2 Value-2 Value-2 Value-2
+============================================================ */
 SELECT
     e.Fname AS "First Name",
     e.Lname AS "Second Name",
@@ -171,15 +169,13 @@ WHERE
 
 /* ============================================================
    QUERY 2
-   List the name and department of the employee who is
-   currently working on more than two projects
-   controlled by R&D department.
+List the name and department of the employee who is currently working on more than two projects controlled by R&D department.
 
-   Expected Output:
-   First Name Second Name Dept_Name Number of Projects
-   Value-1 Value-1 Value-1 Value-1
-   Value-2 Value-2 Value-2 Value-2
-   ============================================================ */
+Expected Output:
+First Name Second Name Dept_Name Number of Projects
+Value-1 Value-1 Value-1 Value-1
+Value-2 Value-2 Value-2 Value-2
+============================================================ */
 SELECT
     e.Fname AS "First Name",
     e.Lname AS "Second Name",
@@ -211,14 +207,13 @@ WHERE
 
 /* ============================================================
    QUERY 3
-   List all the ongoing projects controlled by
-   all the departments.
+List all the ongoing projects controlled by all the departments.
 
-   Expected Output:
-   Project_id Project_title Dept_Name Date of completion
-   Value-1 Value-1 Value-1 Value-1
-   Value-2 Value-2 Value-2 Value-2
-   ============================================================ */
+Expected Output:
+Project_id Project_title Dept_Name Date of completion
+Value-1 Value-1 Value-1 Value-1
+Value-2 Value-2 Value-2 Value-2
+============================================================ */
 SELECT
     p.Pnumber AS Project_id,
     p.Pname AS Project_title,
@@ -237,14 +232,13 @@ WHERE
 
 /* ============================================================
    QUERY 4
-   Give the details of the supervisor who is supervising
-   more than 3 employees who have completed at least one project.
+Give the details of the supervisor who is supervising more than 3 employees who have completed at least one project.
 
-   Expected Output:
-   Supervisor_id supervisor_name
-   Value-1 Value-1
-   Value-2 Value-2
-   ============================================================ */
+Expected Output:
+Supervisor_id supervisor_name
+Value-1 Value-1
+Value-2 Value-2
+============================================================ */
 SELECT
     e.Ssn AS Supervisor_id,
     e.Fname AS supervisor_name
@@ -273,14 +267,13 @@ WHERE
 
 /* ============================================================
    QUERY 5
-   List the name of the dependents of employee who has
-   completed total projects worth 10 Lakhs (10,00,000) or more.
+List the name of the dependents of employee who has completed total projects worth 10 Lakhs (10,00,000) or more.
 
-   Expected Output:
-   Employee_id Employee_name Project_Amount Dependent_Name
-   Value-1 Value-1 Value-1 Value-1
-   Value-2 Value-2 Value-2 Value-2
-   ============================================================ */
+Expected Output:
+Employee_id Employee_name Project_Amount Dependent_Name
+Value-1 Value-1 Value-1 Value-1
+Value-2 Value-2 Value-2 Value-2
+============================================================ */
 SELECT
     e.Ssn AS Employee_id,
     e.Fname AS Employee_name,
@@ -305,14 +298,13 @@ HAVING SUM(p.Worth) >= 1000000;
 
 /* ============================================================
    QUERY 6
-   List the department and employee details whose project
-   is in more than one city.
+List the department and employee details whose project is in more than one city.
 
-   Expected Output:
-   Employee_id Department_id Project_id City
-   Value-1 Value-1 Value-1 Value-1
-   Value-2 Value-2 Value-2 Value-2
-   ============================================================ */
+Expected Output:
+Employee_id Department_id Project_id City
+Value-1 Value-1 Value-1 Value-1
+Value-2 Value-2 Value-2 Value-2
+============================================================ */
 SELECT
     e.Ssn AS Employee_id,
     d.Dnumber AS Department_id,
