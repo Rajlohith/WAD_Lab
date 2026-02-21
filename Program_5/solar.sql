@@ -220,8 +220,6 @@ Value-1 Value-1 Value-1 Value-1 Value-1 Value-1
 ============================================================ */
 SELECT
     v.Name,
-    v.Contact,
-    v.Address,
     p.PV_Module,
     p.PV_Type,
     p.Price,
